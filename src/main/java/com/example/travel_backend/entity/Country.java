@@ -1,6 +1,7 @@
 package com.example.travel_backend.entity;
 
 import com.example.travel_backend.base.BaseEntity;
+import com.example.travel_backend.dto.country.CountryRequest;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -19,11 +20,19 @@ import java.math.BigDecimal;
 public class Country extends BaseEntity {
     private String name;
     private String description;
-    private Integer travelDay;
-    private BigDecimal price;
-    private Double rate;
-    private Boolean active;
     @ManyToOne
     private FileItem countryImage;
 
+    public static Country toEntity(CountryRequest request) {
+        Country country = new Country();
+        country.setName(request.getName());
+        country.setDescription(request.getDescription());
+        return country;
+    }
+
+    public static Country edit(Country country, CountryRequest request) {
+        country.setName(request.getName() != null ? request.getName() : country.getName());
+        country.setDescription(request.getDescription() != null ? request.getDescription() : country.getDescription());
+        return country;
+    }
 }

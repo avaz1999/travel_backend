@@ -1,7 +1,8 @@
 package com.example.travel_backend.entity;
 
 import com.example.travel_backend.base.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,16 +15,15 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Data
 @Entity
-public class Hotel extends BaseEntity {
-    @Column(nullable = false)
+public class TravelPlace extends BaseEntity {
     private String name;
-    private Double rate;
+    private Integer travelDay;
     private BigDecimal price;
-    private String description;
-    private Double percent;
+    private Double rate;
     private Boolean active;
     @ManyToOne
-    private TravelPlace travelPlace;
+    private Country country;
     @ManyToOne
-    private FileItem hotelImage;
+    private FileItem travelPlaceImage;
+
 }

@@ -1,4 +1,4 @@
-package com.example.travel_backend.exception;
+package com.example.travel_backend.exception.base;
 
 import com.example.travel_backend.dto.BaseMessage;
 import com.example.travel_backend.enums.ErrorCode;
