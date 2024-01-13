@@ -14,8 +14,12 @@ public class TravelPlaceRequest {
     @NotBlank(message = "Can't be left blank")
     private String name;
     @NotBlank(message = "Can't be left blank")
+    private String description;
+    @NotBlank(message = "Can't be left blank")
     private Integer travelDay;
     @NotBlank(message = "Can't be left blank")
     private BigDecimal price;
+    @NotBlank(message = "Can't be left blank")
+    private Long countryId;
     private Boolean active;
 }

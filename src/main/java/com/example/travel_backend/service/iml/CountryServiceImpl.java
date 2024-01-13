@@ -1,6 +1,7 @@
 package com.example.travel_backend.service.iml;
 
 import com.example.travel_backend.base.ApiResponse;
+import com.example.travel_backend.dto.country.CountryEditRequest;
 import com.example.travel_backend.dto.country.CountryRequest;
 import com.example.travel_backend.dto.country.CountryResponse;
 import com.example.travel_backend.dto.country.GetOneCountryResponse;
@@ -49,7 +50,7 @@ public class CountryServiceImpl implements CountryService {
 
 
     @Override
-    public ApiResponse<?> edit(Long id, CountryRequest request) {
+    public ApiResponse<?> edit(Long id, CountryEditRequest request) {
         Country country = handleCountry(id);
         Country edit = Country.edit(country, request);
         repository.save(edit);

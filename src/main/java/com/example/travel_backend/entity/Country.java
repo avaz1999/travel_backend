@@ -1,6 +1,7 @@
 package com.example.travel_backend.entity;
 
 import com.example.travel_backend.base.BaseEntity;
+import com.example.travel_backend.dto.country.CountryEditRequest;
 import com.example.travel_backend.dto.country.CountryRequest;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -30,7 +31,7 @@ public class Country extends BaseEntity {
         return country;
     }
 
-    public static Country edit(Country country, CountryRequest request) {
+    public static Country edit(Country country, CountryEditRequest request) {
         country.setName(request.getName() != null ? request.getName() : country.getName());
         country.setDescription(request.getDescription() != null ? request.getDescription() : country.getDescription());
         return country;
