@@ -16,9 +16,10 @@ import com.example.travel_backend.repository.TravelPlaceRepository;
 import com.example.travel_backend.service.TravelPlaceService;
 import com.example.travel_backend.utils.ResMessage;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class TravelPlaceServiceImpl implements TravelPlaceService {
     private final TravelPlaceRepository repository;
     private final CountryRepository countryRepository;
@@ -66,6 +67,7 @@ public class TravelPlaceServiceImpl implements TravelPlaceService {
     public ApiResponse<?> edit(Long id, TravelPlaceEditRequest request) {
         TravelPlace travelPlace = handleTravelPlace(id);
         TravelPlace edit = TravelPlaceEditRequest.edit(travelPlace, request);
+        repository.save(edit);
         return new ApiResponse<>(true,ResMessage.SUCCESS);
     }
 
