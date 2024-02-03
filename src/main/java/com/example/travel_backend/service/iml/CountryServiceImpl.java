@@ -5,11 +5,12 @@ import com.example.travel_backend.dto.country.CountryEditRequest;
 import com.example.travel_backend.dto.country.CountryRequest;
 import com.example.travel_backend.dto.country.CountryResponse;
 import com.example.travel_backend.dto.country.GetOneCountryResponse;
+import com.example.travel_backend.dto.travel.TravelPlaceResponse;
 import com.example.travel_backend.entity.Country;
-import com.example.travel_backend.entity.TravelPlace;
+import com.example.travel_backend.entity.TurPacket;
 import com.example.travel_backend.exception.country.CountryNotFoundException;
 import com.example.travel_backend.repository.CountryRepository;
-import com.example.travel_backend.repository.TravelPlaceRepository;
+import com.example.travel_backend.repository.TurPacketRepository;
 import com.example.travel_backend.service.CountryService;
 import com.example.travel_backend.utils.ResMessage;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,12 @@ import java.util.List;
 @Service
 public class CountryServiceImpl implements CountryService {
     private final CountryRepository repository;
-    private final TravelPlaceRepository travelPlaceRepository;
+    private final TurPacketRepository turPacketRepository;
+    private final TurPacketRepository travelPlaceRepository;
 
-    public CountryServiceImpl(CountryRepository repository, TravelPlaceRepository travelPlaceRepository) {
+    public CountryServiceImpl(CountryRepository repository, TurPacketRepository turPacketRepository, TurPacketRepository travelPlaceRepository) {
         this.repository = repository;
+        this.turPacketRepository = turPacketRepository;
         this.travelPlaceRepository = travelPlaceRepository;
     }
 
@@ -43,12 +46,18 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public ApiResponse<?> getOne(Long id) {
         Country country = handleCountry(id);
-        List<TravelPlace> travelPlaceList = travelPlaceRepository.findByCountryAndDeletedFalse(country);
+        List<TurPacket> travelPlaceList = travelPlaceRepository.findByCountryAndDeletedFalse(country);
         GetOneCountryResponse response = GetOneCountryResponse.toDto(country, travelPlaceList);
         return new ApiResponse<>(true, ResMessage.SUCCESS, response);
     }
 
-
+    @Override
+    public ApiResponse<?> countryTurPackets(Long countryId) {
+        Country country = handleCountry(countryId);
+        List<TravelPlaceResponse> travelPlaceResponses =
+                turPacketRepository.findByCountryAndDeletedFalse(country).stream().map(TravelPlaceResponse::toDto).toList();
+        return new ApiResponse<>(true, ResMessage.SUCCESS, travelPlaceResponses);
+    }
     @Override
     public ApiResponse<?> edit(Long id, CountryEditRequest request) {
         Country country = handleCountry(id);

@@ -2,7 +2,7 @@ package com.example.travel_backend.dto.travel;
 
 import com.example.travel_backend.dto.hotel.HotelResponse;
 import com.example.travel_backend.entity.Hotel;
-import com.example.travel_backend.entity.TravelPlace;
+import com.example.travel_backend.entity.TurPacket;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +22,7 @@ public class TravelPlaceWithHotelResponse {
     private Boolean active;
     private List<HotelResponse> hotelResponses;
 
-    public static TravelPlaceWithHotelResponse toDtoWithHotel(TravelPlace tp, List<Hotel> h) {
+    public static TravelPlaceWithHotelResponse toDtoWithHotel(TurPacket tp, List<Hotel> h) {
         TravelPlaceWithHotelResponse response = new TravelPlaceWithHotelResponse();
         response.setId(tp.getId());
         response.setName(tp.getName());

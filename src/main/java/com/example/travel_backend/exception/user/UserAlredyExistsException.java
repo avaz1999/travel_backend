@@ -7,6 +7,6 @@ public class UserAlredyExistsException extends TravelException {
 
     @Override
     public ErrorCode errorType() {
-        return ErrorCode.USER_ALREDY_EXISTS;
+        return ErrorCode.USER_ALREADY_EXISTS;
     }
 }

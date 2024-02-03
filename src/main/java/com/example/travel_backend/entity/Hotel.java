@@ -23,7 +23,7 @@ public class Hotel extends BaseEntity {
     private Double percent;
     private Boolean active;
     @ManyToOne
-    private TravelPlace travelPlace;
+    private TurPacket travelPlace;
     @ManyToOne
     private FileItem hotelImage;
 }

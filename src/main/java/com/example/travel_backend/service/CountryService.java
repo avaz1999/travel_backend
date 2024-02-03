@@ -10,4 +10,5 @@ public interface CountryService {
     ApiResponse<?> getOne(Long id);
     ApiResponse<?> edit(Long id, CountryEditRequest request);
     ApiResponse<?> delete(Long id);
+    ApiResponse<?> countryTurPackets(Long countryId);
 }
