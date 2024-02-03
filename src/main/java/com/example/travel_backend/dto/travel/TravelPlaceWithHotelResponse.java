@@ -26,7 +26,6 @@ public class TravelPlaceWithHotelResponse {
         TravelPlaceWithHotelResponse response = new TravelPlaceWithHotelResponse();
         response.setId(tp.getId());
         response.setName(tp.getName());
-        response.setTravelDay(tp.getTravelDay());
         response.setPrice(tp.getPrice());
         response.setRate(tp.getRate());
         response.setActive(tp.getActive());

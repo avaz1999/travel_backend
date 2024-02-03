@@ -21,7 +21,6 @@ public class TurPacketEditRequest {
     public static TurPacket edit(TurPacket travelPlace, TurPacketEditRequest request) {
         travelPlace.setName(request.getName() != null ? request.getName() : travelPlace.getName());
         travelPlace.setDescription(request.getDescription() != null? request.getDescription() : travelPlace.getDescription());
-        travelPlace.setTravelDay(request.getTravelDay() != null ? request.getTravelDay() : travelPlace.getTravelDay());
         travelPlace.setPrice(request.getPrice() != null ? request.getPrice() : travelPlace.getPrice());
         travelPlace.setActive(request.getActive() != null ? request.getActive() : travelPlace.getActive());
         return travelPlace;

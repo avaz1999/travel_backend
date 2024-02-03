@@ -24,7 +24,6 @@ public class TravelPlaceResponse {
         response.setId(travelPlace.getId());
         response.setName(travelPlace.getName());
         response.setDescription(travelPlace.getDescription());
-        response.setTravelDay(travelPlace.getTravelDay());
         response.setPrice(travelPlace.getPrice());
         response.setRate(travelPlace.getRate() == null ? 0 : travelPlace.getRate());
         response.setActive(travelPlace.getActive());
