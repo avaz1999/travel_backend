@@ -1,10 +1,10 @@
 package com.example.travel_backend.service.iml;
 
 import com.example.travel_backend.base.ApiResponse;
-import com.example.travel_backend.dto.travel.TurPacketEditRequest;
-import com.example.travel_backend.dto.travel.TurPacketRequest;
-import com.example.travel_backend.dto.travel.TurPacketResponse;
-import com.example.travel_backend.dto.travel.TravelPlaceWithHotelResponse;
+import com.example.travel_backend.dto.hotel.HotelResponse;
+import com.example.travel_backend.dto.nutritioncategory.NutritionCategoryResponse;
+import com.example.travel_backend.dto.turpacket.*;
+import com.example.travel_backend.dto.turpacketcategory.TurPacketCategoryResponse;
 import com.example.travel_backend.entity.*;
 import com.example.travel_backend.exception.country.CountryNotFoundException;
 import com.example.travel_backend.exception.ntrition.NutritionCategoryNotFoundException;
@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class TurPacketServiceImpl implements TurPacketService {
@@ -55,33 +56,55 @@ public class TurPacketServiceImpl implements TurPacketService {
 
     @Override
     public ApiResponse<?> getAll(Pageable pageable) {
-        List<TurPacketResponse> responses =
-                repository.findAllNotDeleted().stream().map(TurPacketResponse::toDto).toList();
+        List<TurPacketGetAllResponse> responses =
+                repository.findAllNotDeleted().stream().map(TurPacketGetAllResponse::toDtoGetAll).toList();
         return new ApiResponse<>(true, ResMessage.SUCCESS, responses);
     }
 
 
     @Override
     public ApiResponse<?> getOne(Long id) {
-        TurPacket travelPlace = handleTravelPlace(id);
-        List<Hotel> hotels = hotelRepository.findAllByTravelPlaceAndDeletedFalse(travelPlace);
-        TravelPlaceWithHotelResponse response = TravelPlaceWithHotelResponse.toDtoWithHotel(travelPlace, hotels);
+        TurPacket turPacket = handleTurPacket(id);
+        List<Hotel> hotels = hotelRepository.findAllByTravelPlaceAndDeletedFalse(turPacket);
+        TurPacketResponse response = TurPacketResponse.toDto(turPacket, hotels);
         return new ApiResponse<>(true,ResMessage.SUCCESS,response);
     }
 
     @Override
+    @Transactional
     public ApiResponse<?> edit(Long id, TurPacketEditRequest request) {
-        TurPacket travelPlace = handleTravelPlace(id);
-        TurPacket edit = TurPacketEditRequest.edit(travelPlace, request);
+        TurPacket travelPlace = handleTurPacket(id);
+        List<NutritionCategory> nutritionCategories = request.getNutritionCategory().stream()
+                .map(response -> nutritionCategoryRepository.findByIdAndDeletedFalse(response.getId()))
+                .toList();
+
+        List<TurPacketCategory> turPacketCategories = request.getTurPacketCategory().stream()
+                .map(response -> turPacketCategoryRepository.findByIdAndDeletedFalse(response.getId()))
+                .toList();
+        List<Hotel> hotels = request.getHotelResponses().stream()
+                .map(hotel -> hotelRepository.findByIdAndDeletedFalse(hotel.getId()))
+                .toList();
+        TurPacket edit = TurPacketEditRequest.edit(travelPlace, request,nutritionCategories,turPacketCategories);
+        if (!hotels.isEmpty()){
+            hotels.forEach(hotel -> {
+                hotel.setTravelPlace(edit);
+                hotelRepository.save(hotel);
+            });
+        }
         repository.save(edit);
         return new ApiResponse<>(true,ResMessage.SUCCESS);
     }
 
     @Override
+    @Transactional
     public ApiResponse<?> delete(Long id) {
-        TurPacket travelPlace = handleTravelPlace(id);
-        travelPlace.setDeleted(true);
-        repository.save(travelPlace);
+        TurPacket turPacket = handleTurPacket(id);
+        turPacket.setDeleted(true);
+        hotelRepository.findAllByTravelPlaceAndDeletedFalse(turPacket).forEach(item -> {
+            item.setDeleted(true);
+            hotelRepository.save(item);
+        });
+        repository.save(turPacket);
         return new ApiResponse<>(true,ResMessage.SUCCESS);
     }
 
@@ -92,10 +115,10 @@ public class TurPacketServiceImpl implements TurPacketService {
         return country;
     }
 
-    private TurPacket handleTravelPlace(Long id) {
+    private TurPacket handleTurPacket(Long id) {
         if (id == null) throw new TravelPlaceNotFoundException();
-        TurPacket travelPlace = repository.findByIdAndDeletedFalse(id);
-        if (travelPlace == null) throw new TravelPlaceNotFoundException();
-        return travelPlace;
+        TurPacket turPacket = repository.findByIdAndDeletedFalse(id);
+        if (turPacket == null) throw new TravelPlaceNotFoundException();
+        return turPacket;
     }
 }

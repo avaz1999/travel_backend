@@ -1,7 +1,7 @@
 package com.example.travel_backend.entity;
 
 import com.example.travel_backend.base.BaseEntity;
-import com.example.travel_backend.dto.travel.TurPacketRequest;
+import com.example.travel_backend.dto.turpacket.TurPacketRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,8 +21,8 @@ public class TurPacket extends BaseEntity {
     private String name;
     private String description;
     private String duration;
-    private Date leaveDate;
-    private Date returnDate;
+    private Long leaveDate;
+    private Long returnDate;
     private BigDecimal price;
     private Double discount;
     private String priceIncludes;

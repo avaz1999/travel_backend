@@ -1,4 +1,4 @@
-package com.example.travel_backend.dto.travel;
+package com.example.travel_backend.dto.turpacket;
 
 import com.example.travel_backend.dto.hotel.HotelResponse;
 import com.example.travel_backend.entity.Hotel;

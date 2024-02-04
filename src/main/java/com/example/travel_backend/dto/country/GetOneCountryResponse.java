@@ -1,6 +1,6 @@
 package com.example.travel_backend.dto.country;
 
-import com.example.travel_backend.dto.travel.TurPacketResponse;
+import com.example.travel_backend.dto.turpacket.TurPacketResponse;
 import com.example.travel_backend.entity.Country;
 import com.example.travel_backend.entity.TurPacket;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ public class GetOneCountryResponse {
         response.setId(country.getId());
         response.setName(country.getName());
         response.setDescription(country.getDescription());
-        response.setTravelPlace(travelPlaceList.stream().map(TurPacketResponse::toDto).toList());
+        response.setTravelPlace(travelPlaceList.stream().map(t -> TurPacketResponse.toDto(t, hotels)).toList());
         return response;
     }
 }

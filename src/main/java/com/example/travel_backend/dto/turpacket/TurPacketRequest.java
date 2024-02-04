@@ -1,4 +1,4 @@
-package com.example.travel_backend.dto.travel;
+package com.example.travel_backend.dto.turpacket;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -20,9 +20,9 @@ public class TurPacketRequest {
     @NotBlank(message = "Can't be left blank")
     private String duration;
     @NotBlank(message = "Can't be left blank")
-    private Date leaveDate;
+    private Long leaveDate;
     @NotBlank(message = "Can't be left blank")
-    private Date returnDate;
+    private Long returnDate;
     @NotBlank(message = "Can't be left blank")
     private BigDecimal price;
     @NotBlank(message = "Can't be left blank")

@@ -5,7 +5,7 @@ import com.example.travel_backend.dto.country.CountryEditRequest;
 import com.example.travel_backend.dto.country.CountryRequest;
 import com.example.travel_backend.dto.country.CountryResponse;
 import com.example.travel_backend.dto.country.GetOneCountryResponse;
-import com.example.travel_backend.dto.travel.TurPacketResponse;
+import com.example.travel_backend.dto.turpacket.TurPacketResponse;
 import com.example.travel_backend.entity.Country;
 import com.example.travel_backend.entity.TurPacket;
 import com.example.travel_backend.exception.country.CountryNotFoundException;
@@ -55,7 +55,7 @@ public class CountryServiceImpl implements CountryService {
     public ApiResponse<?> countryTurPackets(Long countryId) {
         Country country = handleCountry(countryId);
         List<TurPacketResponse> travelPlaceResponses =
-                turPacketRepository.findByCountryAndDeletedFalse(country).stream().map(TurPacketResponse::toDto).toList();
+                turPacketRepository.findByCountryAndDeletedFalse(country).stream().map(t -> TurPacketResponse.toDto(t, hotels)).toList();
         return new ApiResponse<>(true, ResMessage.SUCCESS, travelPlaceResponses);
     }
     @Override
