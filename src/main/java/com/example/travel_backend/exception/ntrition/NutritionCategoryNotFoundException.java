@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class NutritionCategoryNotFoundException extends TravelException {
-    private Long message;
+    private Long id;
     @Override
     public ErrorCode errorType() {
         return ErrorCode.NUTRITION_NOT_FOUND_EXCEPTION;

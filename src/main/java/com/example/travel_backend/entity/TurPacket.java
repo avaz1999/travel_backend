@@ -50,19 +50,31 @@ public class TurPacket extends BaseEntity {
     private List<NutritionCategory> nutritionCategory;
     @ManyToMany
     @JoinTable(
-            name = "tur_packet_category",
+            name = "tur_packets_category",
             joinColumns = @JoinColumn(name = "tur_packet_id"),
             inverseJoinColumns = @JoinColumn(name = "tur_pcaket_category_id")
     )
     private List<TurPacketCategory> turPacketCategory;
 
-    public static TurPacket toEntity(TurPacketRequest request, Country country) {
+    public static TurPacket toEntity(TurPacketRequest request, Country country, List<NutritionCategory> nutritionCategory, List<TurPacketCategory> turPacketCategory) {
         TurPacket travelPlace = new TurPacket();
         travelPlace.setName(request.getName());
         travelPlace.setDescription(request.getDescription());
+        travelPlace.setDuration(request.getDuration());
+        travelPlace.setLeaveDate(request.getLeaveDate());
+        travelPlace.setReturnDate(request.getReturnDate());
         travelPlace.setPrice(request.getPrice());
-        travelPlace.setActive(true);
+        travelPlace.setDiscount(request.getDiscount());
+        travelPlace.setPriceIncludes(request.getPriceIncludes());
+        travelPlace.setPriceNotIncludes(request.getPriceNotIncludes());
+        travelPlace.setInsurance(request.getInsurance());
+        travelPlace.setVisa(request.isVisa());
+        travelPlace.setNumberOfPeople(request.getNumberOfPeople());
+        travelPlace.setRate(0.0);
+        travelPlace.setActive(request.getActive());
         travelPlace.setCountry(country);
+        travelPlace.setNutritionCategory(nutritionCategory);
+        travelPlace.setTurPacketCategory(turPacketCategory);
         return travelPlace;
     }
 }
