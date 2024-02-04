@@ -6,7 +6,6 @@ import com.example.travel_backend.dto.country.CountryRequest;
 import com.example.travel_backend.dto.country.CountryResponse;
 import com.example.travel_backend.dto.country.GetOneCountryResponse;
 import com.example.travel_backend.dto.turpacket.TurPacketGetAllResponse;
-import com.example.travel_backend.dto.turpacket.TurPacketResponse;
 import com.example.travel_backend.entity.Country;
 import com.example.travel_backend.entity.TurPacket;
 import com.example.travel_backend.exception.country.CountryNotFoundException;
@@ -47,7 +46,7 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public ApiResponse<?> getOne(Long id) {
         Country country = handleCountry(id);
-        List<TurPacket> travelPlaceList = travelPlaceRepository.findByCountryAndDeletedFalse(country);
+        List<TurPacket> travelPlaceList = travelPlaceRepository.findAllByCountryAndDeletedFalse(country);
         GetOneCountryResponse response = GetOneCountryResponse.toDto(country, travelPlaceList);
         return new ApiResponse<>(true, ResMessage.SUCCESS, response);
     }
@@ -56,7 +55,7 @@ public class CountryServiceImpl implements CountryService {
     public ApiResponse<?> countryTurPackets(Long countryId) {
         Country country = handleCountry(countryId);
         List<TurPacketGetAllResponse> responses = turPacketRepository
-                .findByCountryAndDeletedFalse(country).stream()
+                .findAllByCountryAndDeletedFalse(country).stream()
                 .map(TurPacketGetAllResponse::toDtoGetAll).toList();
         return new ApiResponse<>(true, ResMessage.SUCCESS, responses);
     }
@@ -72,6 +71,10 @@ public class CountryServiceImpl implements CountryService {
     public ApiResponse<?> delete(Long id) {
         Country country = handleCountry(id);
         country.setDeleted(true);
+        turPacketRepository.findAllByCountryAndDeletedFalse(country).forEach(item -> {
+            item.setDeleted(true);
+            turPacketRepository.save(item);
+        });
         repository.save(country);
         return new ApiResponse<>(true, ResMessage.SUCCESS);
     }
