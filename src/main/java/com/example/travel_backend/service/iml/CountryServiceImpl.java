@@ -5,6 +5,7 @@ import com.example.travel_backend.dto.country.CountryEditRequest;
 import com.example.travel_backend.dto.country.CountryRequest;
 import com.example.travel_backend.dto.country.CountryResponse;
 import com.example.travel_backend.dto.country.GetOneCountryResponse;
+import com.example.travel_backend.dto.turpacket.TurPacketGetAllResponse;
 import com.example.travel_backend.dto.turpacket.TurPacketResponse;
 import com.example.travel_backend.entity.Country;
 import com.example.travel_backend.entity.TurPacket;
@@ -54,9 +55,10 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public ApiResponse<?> countryTurPackets(Long countryId) {
         Country country = handleCountry(countryId);
-        List<TurPacketResponse> travelPlaceResponses =
-                turPacketRepository.findByCountryAndDeletedFalse(country).stream().map(t -> TurPacketResponse.toDto(t, hotels)).toList();
-        return new ApiResponse<>(true, ResMessage.SUCCESS, travelPlaceResponses);
+        List<TurPacketGetAllResponse> responses = turPacketRepository
+                .findByCountryAndDeletedFalse(country).stream()
+                .map(TurPacketGetAllResponse::toDtoGetAll).toList();
+        return new ApiResponse<>(true, ResMessage.SUCCESS, responses);
     }
     @Override
     public ApiResponse<?> edit(Long id, CountryEditRequest request) {
