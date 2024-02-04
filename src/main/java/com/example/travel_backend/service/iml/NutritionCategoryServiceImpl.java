@@ -11,7 +11,6 @@ import com.example.travel_backend.service.NutritionCategoryService;
 import com.example.travel_backend.utils.ResMessage;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,6 +49,7 @@ public class NutritionCategoryServiceImpl implements NutritionCategoryService {
             NutritionCategory category = repository.findByIdAndDeletedFalse(id);
             if (category == null) throw new NutritionCategoryNotFoundException();
             category.setDeleted(true);
+            repository.save(category);
             List<Long> turPacketIds = turPacketRepository
                     .findAllByNutritionCategoryAndDeletedFalse(Collections.singletonList(category))
                     .stream()

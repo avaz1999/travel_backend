@@ -17,4 +17,8 @@ public class TurPacketCategory extends BaseEntity {
     private String name;
     @OneToOne
     private FileItem image;
+
+    public TurPacketCategory(String name) {
+        this.name = name;
+    }
 }
