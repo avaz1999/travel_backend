@@ -14,6 +14,14 @@ spring:
           use_jdbc_metadata_defaults: 'false'
     show-sql: 'true'
     hibernate:
-            ddl-auto: create
-#      ddl-auto: update
+#            ddl-auto: create
+      ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+hashId:
+  salt: Aut0(redit2@File
+  length: 8
+  alphabet: DdAa5Bb4Ii3Yy2Cc1UuMmRrSsFfOoLlWwKkQqXxHhEeVv0Tt6Zz7Pp8Gg9NnJj
 

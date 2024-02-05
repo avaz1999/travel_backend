@@ -22,6 +22,5 @@ public class FileItem extends BaseEntity {
     private String fileContentType;
     @Column(unique = true) private String hashId;
     private String uploadPath;
-    private String uploadFileName;
     private Boolean active;
 }

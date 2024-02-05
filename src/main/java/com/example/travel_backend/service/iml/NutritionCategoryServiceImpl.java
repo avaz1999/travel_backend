@@ -46,17 +46,17 @@ public class NutritionCategoryServiceImpl implements NutritionCategoryService {
 
     @Override
     public ApiResponse<?> delete(Long id) {
-            NutritionCategory category = repository.findByIdAndDeletedFalse(id);
-            if (category == null) throw new NutritionCategoryNotFoundException();
-            category.setDeleted(true);
-            repository.save(category);
-            List<Long> turPacketIds = turPacketRepository
-                    .findAllByNutritionCategoryAndDeletedFalse(Collections.singletonList(category))
-                    .stream()
-                    .peek(turPacket -> turPacket.getNutritionCategory().remove(category))
-                    .peek(turPacketRepository::save)
-                    .map(TurPacket::getId)
-                    .toList();
+//            NutritionCategory category = repository.findByIdAndDeletedFalse(id);
+//            if (category == null) throw new NutritionCategoryNotFoundException();
+//            category.setDeleted(true);
+//            repository.save(category);
+//            List<Long> turPacketIds = turPacketRepository
+//                    .findAllByNutritionCategoryAndDeletedFalse(Collections.singletonList(category))
+//                    .stream()
+//                    .peek(turPacket -> turPacket.getNutritionCategory().remove(category))
+//                    .peek(turPacketRepository::save)
+//                    .map(TurPacket::getId)
+//                    .toList();
             return new ApiResponse<>(true, ResMessage.SUCCESS);
         }
     }

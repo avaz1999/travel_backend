@@ -6,6 +6,7 @@ import com.example.travel_backend.dto.turpacketcategory.TurPacketCategoryRespons
 import com.example.travel_backend.entity.TurPacket;
 import com.example.travel_backend.entity.TurPacketCategory;
 import com.example.travel_backend.exception.turpacket.TurPacketNotFoundException;
+import com.example.travel_backend.exception.turpacketcategory.TurPacketCategoryAlreadyExistException;
 import com.example.travel_backend.repository.TurPacketCategoryRepository;
 import com.example.travel_backend.repository.TurPacketRepository;
 import com.example.travel_backend.service.TurPacketCategoryService;
@@ -27,13 +28,15 @@ public class TurPacketCategoryServiceImpl implements TurPacketCategoryService {
 
     @Override
     public ApiResponse<?> create(TurPacketCategoryRequest request) {
+        if (repository.existsByNameAndDeletedFalse(request.getName()))
+            throw new TurPacketCategoryAlreadyExistException();
         repository.save(new TurPacketCategory(request.getName()));
         return new ApiResponse<>(true, ResMessage.SUCCESS);
     }
 
     @Override
     public ApiResponse<?> getAll() {
-        return new ApiResponse<>(true, ResMessage.SUCCESS,repository.findAll().stream().map(TurPacketCategoryResponse::toDto));
+        return new ApiResponse<>(true, ResMessage.SUCCESS, repository.findAll().stream().map(TurPacketCategoryResponse::toDto));
     }
 
     @Override
@@ -47,16 +50,16 @@ public class TurPacketCategoryServiceImpl implements TurPacketCategoryService {
 
     @Override
     public ApiResponse<?> delete(Long id) {
-        TurPacketCategory category = repository.findByIdAndDeletedFalse(id);
-        if (category == null) throw new TurPacketNotFoundException();
-        category.setDeleted(true);
-        repository.save(category);
-        List<Long> list = turPacketRepository.findAllByTurPacketCategoryAndDeletedFalse(Collections.singletonList(category))
-                .stream()
-                .peek(turPacket -> turPacket.getTurPacketCategory().remove(category))
-                .peek(turPacketRepository::save)
-                .map(TurPacket::getId)
-                .toList();
+//        TurPacketCategory category = repository.findByIdAndDeletedFalse(id);
+//        if (category == null) throw new TurPacketNotFoundException();
+//        category.setDeleted(true);
+//        repository.save(category);
+//        List<Long> list = turPacketRepository.findByTurPacketCategoryAndDeletedFalse(Collections.singletonList(category))
+//                .stream()
+//                .peek(turPacket -> turPacket.getTurPacketCategory().remove(category))
+//                .peek(turPacketRepository::save)
+//                .map(TurPacket::getId)
+//                .toList();
         return new ApiResponse<>(true, ResMessage.SUCCESS);
     }
 }

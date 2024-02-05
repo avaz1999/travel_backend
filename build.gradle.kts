@@ -25,6 +25,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.hashids:hashids:1.0.3")
     compileOnly("org.projectlombok:lombok")
     implementation("jakarta.validation:jakarta.validation-api:3.0.0")
     runtimeOnly("org.postgresql:postgresql")

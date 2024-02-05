@@ -11,6 +11,6 @@ import java.util.List;
 public interface TurPacketRepository extends BaseRepository<TurPacket> {
     List<TurPacket> findAllByCountryAndDeletedFalse(Country country);
 
-    List<TurPacket> findAllByNutritionCategoryAndDeletedFalse(List<NutritionCategory> nutritionCategories);
-    List<TurPacket> findAllByTurPacketCategoryAndDeletedFalse(List<TurPacketCategory> turPacketCategories);
+//    List<TurPacket> findAllByNutritionCategoryAndDeletedFalse(List<NutritionCategory> nutritionCategories);
+//    List<TurPacket> findByTurPacketCategoryAndDeletedFalse(List<TurPacketCategory> turPacketCategories);
 }
