@@ -7,6 +7,7 @@ import com.example.travel_backend.service.TurPacketService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +18,7 @@ public class TurPacketController {
     public TurPacketController(TurPacketService service) {
         this.service = service;
     }
+    @PreAuthorize("hasAnyAuthority('DEVELOPER', 'ADMIN','OPERATOR')")
     @PostMapping("create/{countryId}")
     public ResponseEntity<?> create(@PathVariable Long countryId, @RequestBody @Valid TurPacketRequest request){
         return ApiResponse.controller(service.create(countryId,request));
@@ -29,10 +31,12 @@ public class TurPacketController {
     public ResponseEntity<?> getOne(@PathVariable Long id){
         return ApiResponse.controller(service.getOne(id));
     }
+    @PreAuthorize("hasAnyAuthority('DEVELOPER', 'ADMIN','OPERATOR')")
     @PutMapping("{id}")
     public ResponseEntity<?> edit(@PathVariable Long id,@RequestBody TurPacketEditRequest request){
         return ApiResponse.controller(service.edit(id,request));
     }
+    @PreAuthorize("hasAnyAuthority('DEVELOPER', 'ADMIN','OPERATOR')")
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         return ApiResponse.controller(service.delete(id));
