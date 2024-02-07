@@ -1,4 +1,5 @@
-package com.example.travel_backend.dto.user;
+package com.example.travel_backend.dto.auth;
+
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserRequest {
+public class RegisterRequest {
     @Size(min = 1, max = 64, message = "fullName length should be between 1 and 64")
     private String fullName;
     @NotBlank

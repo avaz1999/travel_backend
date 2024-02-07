@@ -25,10 +25,11 @@ public class UserResponse {
         return response;
     }
 
-    public static User edit(User user, UserRequest request) {
+    public static User edit(User user, UserEditRequest request) {
         user.setFullName(request.getFullName() != null ? request.getFullName() : user.getFullName());
         user.setUsername(request.getUsername() != null ? request.getUsername() : user.getUsername());
-        user.setPassword(request.getPhoneNumber() != null? request.getPassword():user.getPhoneNumber());
+        user.setEmail(request.getEmail() != null ? request.getEmail() : user.getEmail());
+        user.setPassword(request.getPhoneNumber() != null ? request.getPhoneNumber() : user.getPhoneNumber());
         return user;
     }
 }

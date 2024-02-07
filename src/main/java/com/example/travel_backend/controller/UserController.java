@@ -1,6 +1,7 @@
 package com.example.travel_backend.controller;
 
 import com.example.travel_backend.base.ApiResponse;
+import com.example.travel_backend.dto.user.UserEditRequest;
 import com.example.travel_backend.dto.user.UserRequest;
 import com.example.travel_backend.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,6 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping
-    public ResponseEntity<?> create(@RequestBody UserRequest request){
-        return ApiResponse.controller(service.create(request));
-    }
 
     @GetMapping("all")
     public ResponseEntity<?> getAll(){
@@ -30,7 +27,7 @@ public class UserController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> edit(@PathVariable Long id, @RequestBody UserRequest request){
+    public ResponseEntity<?> edit(@PathVariable Long id, @RequestBody UserEditRequest request){
         return ApiResponse.controller(service.edit(id,request));
     }
     @DeleteMapping("{id}")

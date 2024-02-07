@@ -76,16 +76,6 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
-
-    public void writerErrorResp(Exception exception, HttpServletResponse response, int status, ObjectMapper objectMapper) throws IOException {
-        PrintWriter writer = response.getWriter();
-        ApiResponse<String> customResponse = new ApiResponse<>(false, exception.getMessage());
-        response.setStatus(status);
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        final var content = objectMapper.writeValueAsString(customResponse);
-        writer.println(content);
-    }
-
     @Override
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) throws ServletException {
         return (request.getRequestURI().startsWith("/api/auth"));

@@ -24,9 +24,11 @@ import java.util.List;
 @Data
 @Entity(name = "users")
 public class User extends BaseEntity implements UserDetails {
+    @Column(nullable = false)
     private String fullName;
     private String phoneNumber;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
+    private String email;
     private String username;
     private String password;
     @Enumerated(EnumType.STRING)
@@ -35,9 +37,8 @@ public class User extends BaseEntity implements UserDetails {
     public static User create(UserRequest request) {
         User user = new User();
         user.setFullName(request.getFullName());
-        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
-        user.setPhoneNumber(request.getPhoneNumber());
         user.setRole(Role.USER);
         return user;
     }
