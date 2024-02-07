@@ -2,12 +2,12 @@ package com.example.travel_backend.entity;
 
 import com.example.travel_backend.base.BaseEntity;
 import com.example.travel_backend.dto.turpacket.TurPacketRequest;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;

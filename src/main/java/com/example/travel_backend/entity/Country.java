@@ -3,14 +3,14 @@ package com.example.travel_backend.entity;
 import com.example.travel_backend.base.BaseEntity;
 import com.example.travel_backend.dto.country.CountryEditRequest;
 import com.example.travel_backend.dto.country.CountryRequest;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @EqualsAndHashCode(callSuper = true)

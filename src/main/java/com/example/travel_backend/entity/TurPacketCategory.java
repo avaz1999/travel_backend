@@ -1,12 +1,13 @@
 package com.example.travel_backend.entity;
 
 import com.example.travel_backend.base.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

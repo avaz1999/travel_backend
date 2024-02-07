@@ -2,14 +2,15 @@ package com.example.travel_backend.repository.base.impl;
 
 import com.example.travel_backend.base.BaseEntity;
 import com.example.travel_backend.repository.base.BaseRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.List;
 
 public class BaseRepositoryImpl<T extends BaseEntity> extends SimpleJpaRepository<T, Long> implements BaseRepository<T> {

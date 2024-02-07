@@ -1,12 +1,14 @@
 package com.example.travel_backend.entity;
 
 import com.example.travel_backend.base.BaseEntity;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @EqualsAndHashCode(callSuper = true)
